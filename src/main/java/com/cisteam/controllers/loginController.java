@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 public class loginController {
 
-    @RequestMapping(value = "/start" ,method = RequestMethod.GET)
+
+    /////////////////////For Admins*********************
+    @RequestMapping(value = "/startAdmin" ,method = RequestMethod.GET)
     public String start(){
         return "startpage";
     }
@@ -18,5 +20,11 @@ public class loginController {
         return "login";
     }
 
+
+    ////////////////////for Users ****************
+    @RequestMapping(value = "/start" ,method = RequestMethod.GET)
+    public String startpage(){
+        return "user_startpage";
+    }
 
 }
