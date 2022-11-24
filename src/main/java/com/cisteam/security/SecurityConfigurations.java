@@ -6,7 +6,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
 import javax.sql.DataSource;
 
 @Configuration
@@ -15,12 +14,14 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
      @Autowired
      DataSource dataSource;
-     String [] ACCEPTABLE_ENDPOINTS={"/login","/start","/startAdmin"};
+     String [] ACCEPTABLE_ENDPOINTS={"/startAdmin","/start"};
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers(ACCEPTABLE_ENDPOINTS).permitAll()
-                .antMatchers("/","/*product*/**").access("hasRole('USER')").and().formLogin();
+                .antMatchers("/","/*-admin").access("hasRole('ADMIN')")
+                .antMatchers("/" , "/*product*/**" ).access("hasRole('USER')")
+                .and().formLogin();
     }
 
     @Autowired
@@ -28,6 +29,6 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery("select username,password,enabled from users where username=?")
                 .authoritiesByUsernameQuery("select username,role from user_roles where username=?");
-//        auth.inMemoryAuthentication().withUser("Medo").password("1234").roles("USER");
     }
+
 }

@@ -27,8 +27,8 @@
         <td>${product.price}</td>
         <td>${product.date}</td>
         <td>
-        <a href="/delete-product?id=${product.id}" class="btn btn-danger">Delete</a>
-        <a href="/edit-product?id=${product.id}" class="btn btn-success">Edit</a>
+        <a href="/delete-product-admin?id=${product.id}" class="btn btn-danger">Delete</a>
+        <a href="/edit-product-admin?id=${product.id}" class="btn btn-success">Edit</a>
         </td>
 
 

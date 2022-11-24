@@ -2,7 +2,6 @@
 
     <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
         <html>
-
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
             <title>Registration</title>
@@ -10,7 +9,6 @@
 
         <body>
             <form:form id="regForm" modelAttribute="user" action="register" method="post">
-
                 <table align="center">
                     <tr>
                         <td>
@@ -48,7 +46,6 @@
 
                 </table>
             </form:form>
-
         </body>
 
         </html>

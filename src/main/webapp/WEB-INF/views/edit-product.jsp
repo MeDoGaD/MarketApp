@@ -5,7 +5,7 @@
 
 <div class="container">
 
-<form action="/edit-product" method="POST">
+<form action="/edit-product-admin" method="POST">
     <input type="text"   name="id" value="${product.id}" hidden  required>
 
   <div class="form-group">

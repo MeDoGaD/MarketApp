@@ -5,7 +5,7 @@
 
 <div class="container">
 
-<form action="/add-product" method="POST">
+<form action="/add-product-admin" method="POST">
   <div class="form-group">
     <label for="exampleInputEmail1">name </label>
     <input type="text" class="form-control" name="name" required>

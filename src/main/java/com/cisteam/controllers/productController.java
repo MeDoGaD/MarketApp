@@ -22,43 +22,42 @@ public class productController {
     private ProductDAOImpl productDAO;
 
 
-//////////////for Admins **********************************************************
-    @RequestMapping(value = "/getAllProducts")
+/////////////////////////////////////for Admins **********************************************************
+    @RequestMapping(value = "/getAllProducts-admin")
     public ModelAndView getAllProducts(ModelMap map){
         return new ModelAndView("all-Product","products",productDAO.getAllProducts());
     }
 
-    @RequestMapping(value = "/add-product",method = RequestMethod.GET)
+    @RequestMapping(value = "/add-product-admin",method = RequestMethod.GET)
     public String addProduct(){
         return "add-product";
     }
 
-    @RequestMapping(value = "/add-product",method = RequestMethod.POST)
+    @RequestMapping(value = "/add-product-admin",method = RequestMethod.POST)
     public String addProductToDB(@RequestParam String name,@RequestParam int quantity,@RequestParam double price){
         productDAO.addProduct(new Product(name,quantity,price));
         return "redirect:getAllProducts";
     }
 
-    @RequestMapping(value = "/edit-product",method = RequestMethod.GET)
+    @RequestMapping(value = "/edit-product-admin",method = RequestMethod.GET)
     public String editProduct(@RequestParam int id, ModelMap modelMap){
         modelMap.addAttribute("product",productDAO.getProductById(id));
         return "edit-product";
     }
 
-    @RequestMapping(value = "/edit-product",method = RequestMethod.POST)
+    @RequestMapping(value = "/edit-product-admin",method = RequestMethod.POST)
     public String editProductInDB(Product product){
         productDAO.editProduct(product);
         return "redirect:getAllProducts";
     }
 
-    @RequestMapping(value = "/delete-product",method = RequestMethod.GET)
+    @RequestMapping(value = "/delete-product-admin",method = RequestMethod.GET)
     public String deleteProduct(@RequestParam int id){
         productDAO.deleteProduct(id);
         return "redirect:getAllProducts";
     }
 
-
-    //////////////// for Users ***************************************
+    ///////////////////////////////////// for Users ***************************************
 
     @RequestMapping(value = "/viewProducts")
     public ModelAndView getAllProductsForUser(ModelMap map){
@@ -85,6 +84,7 @@ public class productController {
     @RequestMapping(value = "/delete-product-cart",method = RequestMethod.GET)
     public String deleteProductFromCart(@RequestParam int id){
          Cart.myCart.removeProductFromCart(id);
-        return "redirect:cart";
+         return "redirect:cart";
     }
+
 }
