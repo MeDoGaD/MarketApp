@@ -37,7 +37,7 @@
 </div>
 
 <div class="jumbotron text-center" style="height:10px">
- <a href="/" class="btn btn-success">Confirm order <br> ${total}$</a>
+ <a href="/user-product-confirm" class="btn btn-success">Confirm order <br> ${total}$</a>
 </div>
 
 <%@ include file="includes/footer.jspf" %>

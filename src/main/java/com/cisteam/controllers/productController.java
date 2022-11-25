@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class productController {
@@ -86,5 +87,22 @@ public class productController {
          Cart.myCart.removeProductFromCart(id);
          return "redirect:cart";
     }
+
+    @RequestMapping(value = "/user-product-confirm",method = RequestMethod.GET)
+    public ModelAndView confirmOrder(){
+        ModelAndView mv=new ModelAndView("user_confirmOrder");
+        mv.addObject("totalPrice",Cart.myCart.getTotal_Price());
+        List<String>errors= productDAO.checkValidOrder();
+        if(errors.size()==0)
+        {
+           boolean c= productDAO.UpdateStoreItems_AfterOrder();
+           if(c)
+               Cart.getInstance().clearCart();
+
+        }
+        mv.addObject("errors",errors);
+        return mv;
+    }
+
 
 }

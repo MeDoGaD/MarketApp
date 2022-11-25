@@ -1,11 +1,13 @@
 package com.cisteam.Repository;
 
 import com.cisteam.mapper.ProductMapper;
+import com.cisteam.models.Cart;
 import com.cisteam.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -56,6 +58,41 @@ public class ProductDAOImpl implements ProductDAO{
     public void setDataSource(DataSource dataSource) {
      this.dataSource=dataSource;
      this.template=new JdbcTemplate(dataSource);
+    }
+
+
+    public List<String> checkValidOrder(){
+        List<String>errors=new ArrayList<>();
+        List<Product>allProducts=getAllProducts();
+        Cart c=Cart.getInstance();
+        for (int i=0;i< c.getProducts().size();i++){
+            Product p=getProductById(c.getProducts().get(i).getId());
+            if(p.getQuantity()>=c.getProducts().get(i).getQuantity())
+                continue;
+            else {
+                errors.add(String.format("The available quantity of %s you can buy is %d",p.getName(),p.getQuantity()));
+            }
+        }
+        return errors;
+    }
+
+    public boolean UpdateStoreItems_AfterOrder(){
+        Product p=new Product();
+        List<Product>allProducts=getAllProducts();
+        Cart c=Cart.getInstance();
+        try {
+            for (int i = 0; i < c.getProducts().size(); i++) {
+                p = getProductById(c.getProducts().get(i).getId());
+                int newQuan = p.getQuantity() - c.getProducts().get(i).getQuantity();
+                p.setQuantity(newQuan);
+                editProduct(p);
+            }
+        }catch (Exception ex){
+            return false;
+        }
+        finally {
+            return true;
+        }
     }
 
 }

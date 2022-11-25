@@ -6,7 +6,7 @@
     <display-name>Products DataBase</display-name>
 
     <welcome-file-list>
-        <welcome-file>/WEB-INF/views/startpage.jsp</welcome-file>
+        <welcome-file>/WEB-INF/views/user_startpage.jsp</welcome-file>
     </welcome-file-list>
 
     <servlet>

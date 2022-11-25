@@ -54,4 +54,9 @@ static {
     public void DecrementTotalBy(double val){
         total_Price-=val;
     }
+
+    public void clearCart(){
+       this.total_Price=0;
+       this.products.clear();
+    }
 }
